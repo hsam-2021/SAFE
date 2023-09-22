@@ -9,3 +9,5 @@ Air Travel Insurance Application
 **Back-end:** Spring Tool Suite as IDE, Java 8, Java Persistence API (Hibernate) as ORM tool. <br />
 **Database:** PostgreSQL <br />
 **CRUD operation**  REST API calls. <br />
+
+![image](https://github.com/hsam-2021/SAFE/assets/94940146/cee65130-d315-4ee4-a1be-ad7b479bf3b7)
