@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>SAFE Registration</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap core CSS -->
+<script th:src="@{webjars/jquery/3.5.1/jquery.js}"></script>
+<script th:src="@{webjars/bootstrap/4.5.0/js/bootstrap.js}"></script>
+<script th:src="@{/js/jquery.datatables.js}"></script>
+<script th:src="@{/js/dataTables.buttons.js}"></script>
+<script th:src="@{/js/dataTables.select.js}"></script>
+<script th:src="@{/js/dataTables.responsive.js}"></script>
+<script th:src="@{/js/dataTables.altEditor.js}"></script>
+<script th:src="@{/js/customerDetails.js}"></script>
+<link th:rel="stylesheet"
+	th:href="@{webjars/bootstrap/4.5.0/css/bootstrap.css} " />
+<link rel="stylesheet" th:href="@{/css/jquery.datatables.css}">
+<link rel="stylesheet" th:href="@{/css/buttons.dataTables.css}">
+<link rel="stylesheet" th:href="@{/css/select.dataTables.css}">
+<link rel="stylesheet" th:href="@{/css/responsive.dataTables.css}">
+
+</head>
+<body>
+	<div class="d-flex justify-content-center"
+		style="position: absolute; top: 45%; left: 50%; width: 33%; max-width: 400px; min-width: 300px; transform: translateX(-50%) translateY(-50%) scale3d(1, 1, 1); text-align: center;">
+		<div class="spinner-grow" id="loader"
+			style="width: 5rem; height: 5rem;" role="status">
+			<span class="sr-only">Loading...</span>
+		</div>
+	</div>
+	<nav class="navbar navbar-dark bg-dark">
+		<form th:action="@{/logout}" method="post" class="navbar-brand">
+			<img width="200" height="50" src="images/safe_logo.png"> Safe
+			Fly Management Excellence
+			<h6 th:inline="text" align="right">
+				Welcome [[${#httpServletRequest.remoteUser}]] <input type="submit"
+					value="Logout" />
+			</h6>
+			<input id=customerEmail th:value="${#httpServletRequest.remoteUser}"
+				type="hidden">
+		</form>
+		<div sec:authorize="hasAnyRole('USER','ADMIN')">
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarToggleExternalContent"
+				aria-controls="navbarToggleExternalContent" aria-expanded="true"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+		</div>
+		<div sec:authorize="hasAnyRole('USER')"
+			class="navbar-collapse collapse" id="navbarToggleExternalContent"
+			style="width: 250px; background: rgb(80, 80, 80); position: fixed; right: 0px; top: 85px; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; outline: none; z-index: 2001; box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 20px;">
+
+			<div class="container" style="width: 100%">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><a class="nav-link" href="#"
+						th:href="@{/}">Home<span class="sr-only">(current)</span></a></li>
+					<li class="nav-item"><a class="nav-link" href="#"
+						th:href="@{/purchasePlanTransaction}">Transaction</a></li>
+					<li class="nav-item"><a class="nav-link" href="#"
+						th:href="@{/customerDetails}">Update Profile</a></li>
+				</ul>
+			</div>
+		</div>
+		<div sec:authorize="hasAnyRole('ADMIN')"
+			class="navbar-collapse collapse" id="navbarToggleExternalContent"
+			style="width: 250px; background: rgb(80, 80, 80); position: fixed; right: 0px; top: 85px; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; outline: none; z-index: 2001; box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 20px;">
+
+			<div class="container" style="width: 100%">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><a class="nav-link" href="#"
+						th:href="@{/}">Home<span class="sr-only">(current)</span></a></li>
+					<li class="nav-item"><a class="nav-link" href="#"
+						th:href="@{/purchasePlanTransaction}">Manage Transactions</a></li>
+					<li class="nav-item"><a class="nav-link" href="#"
+						th:href="@{/customerDetails}">Manage Customer Profile</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container">
+		<nav class="navbar navbar-light rounded">
+			<h3>
+				<a class="navbar">Customer Profile Details</a>
+			</h3>
+			<div class="container">
+				<table id="customerDetailsTable"
+					class="table table-striped table-bordered" style="width: 100%">
+				</table>
+			</div>
+		</nav>
+	</div>
+	<div id="loaderDiv"
+		style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100%; background: rgba(0, 0, 0, 0.75) url(images/wait.gif) no-repeat center center; z-index: 10000;">
+	</div>
+	<script>
+		document.onreadystatechange = function() {
+			if (document.readyState !== "complete") {
+				document.querySelector("body").style.visibility = "hidden";
+				document.querySelector("#loader").style.visibility = "visible";
+			} else {
+				document.querySelector("#loader").style.display = "none";
+				document.querySelector("body").style.visibility = "visible";
+			}
+		};
+	</script>
+</body>
+</html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>SAFE Registration</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap core CSS -->
+<script th:src="@{webjars/jquery/3.5.1/jquery.js}"></script>
+<script th:src="@{webjars/bootstrap/4.5.0/js/bootstrap.js}"></script>
+<script th:src="@{/js/customerRegistration.js}"></script>
+<link th:rel="stylesheet"
+	th:href="@{webjars/bootstrap/4.5.0/css/bootstrap.css} " />
+</head>
+<body>
+	<div class="d-flex justify-content-center"
+		style="position: absolute; top: 45%; left: 50%; width: 33%; max-width: 400px; min-width: 300px; transform: translateX(-50%) translateY(-50%) scale3d(1, 1, 1); text-align: center;">
+		<div class="spinner-grow" id="loader"
+			style="width: 5rem; height: 5rem;" role="status">
+			<span class="sr-only">Loading...</span>
+		</div>
+	</div>
+	<nav class="navbar navbar-dark bg-dark">
+		<form th:action="@{/logout}" method="post" class="navbar-brand">
+			<img width="200" height="50" src="images/safe_logo.png"> Safe
+			Fly Management Excellence
+			<h6 th:inline="text" align="right">
+				Welcome [[${#httpServletRequest.remoteUser}]] <input type="submit"
+					value="Logout" />
+			</h6>
+		</form>
+	</nav>
+
+	<div class="container">
+
+		<nav class="navbar navbar-light rounded">
+			<div class="col-md-15">
+				<h3>SAFE Customer Registration</h3>
+				<form id="customerRegistrationForm" name="customerRegistrationForm"
+					method="post">
+					<div class="row">
+
+						<div class="col-md-3">
+							<label for="passengerFirstName" class="control-label">First
+								name</label> <input type="text" id="passengerFirstName"
+								class="form-control" th:value="${firstname}" required />
+						</div>
+
+						<div class="col-md-3">
+							<label for="passengerLastName" class="control-label">Last
+								name</label> <input type="text" id="passengerLastName"
+								class="form-control" th:value="${lastname}" required />
+						</div>
+
+						<div class="col-md-3">
+							<label for="street" class="control-label">Street</label> <input
+								type="text" id="street" class="form-control" required />
+						</div>
+
+						<div class="col-md-3">
+							<label for="aptno" class="control-label">Apt No</label> <input
+								id="aptno" class="form-control" />
+						</div>
+
+						<div class="col-md-3">
+							<label for="city" class="control-label">city</label> <input
+								type="text" id="city" class="form-control" required />
+						</div>
+
+						<div class="col-md-3">
+							<label for="custState" class="control-label">State</label> <input
+								type="text" id="custState" class="form-control" required />
+						</div>
+
+						<div class="col-md-3">
+							<label for="country" class="control-label">Country</label> <input
+								type="text" id="country" class="form-control" required />
+						</div>
+
+						<div class="col-md-3">
+							<label for="zip" class="control-label">Zip</label> <input
+								type="number" min="10000" max="99999" id="zip"
+								class="form-control" required
+								oninvalid="setCustomValidity('allow up to 5 digits')"
+								oninput="setCustomValidity('')" />
+						</div>
+
+
+						<div class="col-md-3">
+							<label for="custEmail" class="control-label">E-mail</label> <input
+								id="custEmail" class="form-control" th:value="${email}" readonly />
+						</div>
+
+						<div class="col-md-3">
+							<label for="contactNum" class="control-label">Contact
+								Number</label> <input type="number" min="1000000000" max="9999999999"
+								id="contactNum" class="form-control" required
+								oninvalid="setCustomValidity('allow only 10 digits')"
+								oninput="setCustomValidity('')" />
+						</div>
+
+						<div class="col-md-3">
+							<label for="countryCodePhone" class="control-label">Country
+								Code</label> <input type="number" min="1" max="999"
+								id="countryCodePhone" class="form-control" required
+								oninvalid="setCustomValidity('allow up to 3 digits')"
+								oninput="setCustomValidity('')" />
+						</div>
+
+						<div class="col-md-3">
+							<label for="passengerGender" class="control-label">Gender</label>
+							<select id="passengerGender" class="form-control" required>
+								<option value="">Select</option>
+								<option value="M">Male</option>
+								<option value="F">Female</option>
+							</select>
+						</div>
+
+						<div class="col-md-3">
+							<label for="passengerNationality" class="control-label">Nationality</label>
+							<input type="text" id="passengerNationality" class="form-control"
+								required />
+						</div>
+
+						<div class="col-md-3">
+							<label for="passengerDob" class="control-label">DOB</label> <input
+								type="date" id="passengerDob" class="form-control"
+								placeholder="MM/DD/YYYY" required />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3">
+							<label for="passengerPassportNo" class="control-label">Passport</label>
+							<input id="passengerPassportNo" class="form-control" required />
+						</div>
+
+						<div class="col-md-3">
+							<label for="passengerPassportExpiry" class="control-label">Passport
+								Expiration Date name</label> <input type="date"
+								id="passengerPassportExpiry" class="form-control"
+								placeholder="MM/DD/YYYY" required />
+						</div>
+
+						<div class="col-md-3">
+							<label for="emergencyContactNum" class="control-label">Emergency
+								Contact Number</label> <input type="number" min="1000000000"
+								max="9999999999" id="emergencyContactNum" class="form-control"
+								required oninvalid="setCustomValidity('Emergency Contact cannot be same as Customer contacts - 10 digits only')"
+								oninput="setCustomValidity('')" />
+						</div>
+
+						<div class="col-md-3">
+							<label for="emergencyContactFirstName" class="control-label">Emergency
+								Contact First Name</label> <input type="text"
+								id="emergencyContactFirstName" class="form-control" required />
+						</div>
+
+						<div class="col-md-3">
+							<label for="emergencyContactLastName" class="control-label">Emergency
+								Contact Last Name</label> <input type="text"
+								id="emergencyContactLastName" class="form-control" required />
+						</div>
+
+						<div class="col-md-3">
+							<label for="customerType" class="control-label">Source
+								Type</label> <select id="customerType" class="form-control" required>
+								<option value="">Select</option>
+								<option value="D">Direct</option>
+								<option value="A">Booking Agent</option>
+								<option value="M">Membership</option>
+							</select>
+						</div>
+
+						<div class="col-md-3" id="bookingAgentNamediv"
+							style="display: none;">
+							<label for="bookingAgentName" class="control-label">Agent
+								Name</label> <input type="text" id="bookingAgentName"
+								class="form-control" />
+						</div>
+
+						<div class="col-md-3" id="bookingAgentWebAdddiv"
+							style="display: none;">
+							<label for="bookingAgentWebAdd" class="control-label">Agent
+								Web-site</label> <input type="text" id="bookingAgentWebAdd"
+								class="form-control" />
+						</div>
+
+						<div class="col-md-3" id="bookingAgentContactNodiv"
+							style="display: none;">
+							<label for="bookingAgentContactNo" class="control-label">Agent
+								Contact No</label> <input type="number" min="1000000000"
+								max="9999999999" id="bookingAgentContactNo" class="form-control"
+								oninvalid="setCustomValidity('allow only 10 digits')"
+								oninput="setCustomValidity('')" />
+						</div>
+
+
+						<div class="col-md-3" id="membershipnamediv"
+							style="display: none;">
+							<label for="membershipname" class="control-label">Membership
+								Name</label> <input type="text" id="membershipname" class="form-control" />
+						</div>
+
+						<div class="col-md-3" id="assoicatedAirlinediv"
+							style="display: none;">
+							<label for="assoicatedAirline" class="control-label">Membership
+								Airline</label> <input type="text" id="assoicatedAirline"
+								class="form-control" />
+						</div>
+
+						<div class="col-md-3" id="membershipStartDatediv"
+							style="display: none;">
+							<label for="membershipStartDate" class="control-label">Membership
+								Start Date</label> <input type="date" id="membershipStartDate"
+								class="form-control" />
+						</div>
+
+						<div class="col-md-3" id="membershipEndtDatediv"
+							style="display: none;">
+							<label for="membershipEndtDate" class="control-label">Membership
+								End Date</label> <input type="date" id="membershipEndtDate"
+								class="form-control" />
+						</div>
+					</div>
+
+					<br>
+					<div class="row">
+						<button type="submit" class="btn btn-success">Submit</button>
+					</div>
+
+				</form>
+			</div>
+		</nav>
+	</div>
+	<div id="loaderDiv"
+		style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100%; background: rgba(0, 0, 0, 0.75) url(images/wait.gif) no-repeat center center; z-index: 10000;">
+	</div>
+	<script>
+		document.onreadystatechange = function() {
+			if (document.readyState !== "complete") {
+				document.querySelector("body").style.visibility = "hidden";
+				document.querySelector("#loader").style.visibility = "visible";
+			} else {
+				document.querySelector("#loader").style.display = "none";
+				document.querySelector("body").style.visibility = "visible";
+			}
+		};
+
+		var field = document.getElementById('emergencyContactNum');
+		field
+				.addEventListener(
+						'input',
+						function() {
+							var emergencyContact = document
+									.getElementById('emergencyContactNum').value;
+							var custContactNumval = document
+									.getElementById('contactNum').value;
+							//	alert(emergencyContact);
+							//	alert(custContactNumval);
+							if (emergencyContact == custContactNumval) {
+								field
+										.setCustomValidity('Emergency Contact cannot be same as Customer contacts');
+							} else {
+								event.target.setCustomValidity('');
+							}
+						});
+
+		$(document).ready(
+				function() {
+					$("#customerType").change(
+							function() {
+								if ($(this).val() == "A") {
+									$("#bookingAgentNamediv").show().find(
+											':input').attr('required', true);
+									$("#bookingAgentWebAdddiv").show().find(
+											':input').attr('required', true);
+									$("#bookingAgentContactNodiv").show().find(
+											':input').attr('required', true);
+									$("#membershipnamediv").hide().find(
+											':input').attr('required', false);
+									$("#assoicatedAirlinediv").hide().find(
+											':input').attr('required', false);
+									$("#membershipStartDatediv").hide().find(
+											':input').attr('required', false);
+									$("#membershipEndtDatediv").hide().find(
+											':input').attr('required', false);
+								} else if ($(this).val() == "M") {
+									$("#bookingAgentNamediv").hide().find(
+											':input').attr('required', false);
+									$("#bookingAgentWebAdddiv").hide().find(
+											':input').attr('required', false);
+									$("#bookingAgentContactNodiv").hide().find(
+											':input').attr('required', false);
+									$("#membershipnamediv").show().find(
+											':input').attr('required', true);
+									$("#assoicatedAirlinediv").show().find(
+											':input').attr('required', true);
+									$("#membershipStartDatediv").show().find(
+											':input').attr('required', true);
+									$("#membershipEndtDatediv").show().find(
+											':input').attr('required', true);
+								} else {
+									$("#bookingAgentNamediv").hide().find(
+											':input').attr('required', false);
+									$("#bookingAgentWebAdddiv").hide().find(
+											':input').attr('required', false);
+									$("#bookingAgentContactNodiv").hide().find(
+											':input').attr('required', false);
+									$("#membershipnamediv").hide().find(
+											':input').attr('required', false);
+									$("#assoicatedAirlinediv").hide().find(
+											':input').attr('required', false);
+									$("#membershipStartDatediv").hide().find(
+											':input').attr('required', false);
+									$("#membershipEndtDatediv").hide().find(
+											':input').attr('required', false);
+								}
+							});
+				});
+
+		$(document).ready(function() {
+			$('#customerRegistrationForm').bootstrapValidator({
+				feedbackIcons : {
+					valid : 'glyphicon glyphicon-ok',
+					invalid : 'glyphicon glyphicon-remove',
+					validating : 'glyphicon glyphicon-refresh'
+				},
+				fields : {
+					birthday : {
+						validators : {
+							date : {
+								format : 'MM/DD/YYYY',
+								message : 'The value is not a valid date'
+							}
+						}
+					}
+				}
+			});
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>SAFE Registration</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap core CSS -->
+<script th:src="@{webjars/jquery/3.5.1/jquery.js}"></script>
+<script th:src="@{webjars/bootstrap/4.5.0/js/bootstrap.js}"></script>
+<link th:rel="stylesheet"
+	th:href="@{webjars/bootstrap/4.5.0/css/bootstrap.css} " />
+</head>
+<body>
+	<div class="d-flex justify-content-center"
+		style="position: absolute; top: 45%; left: 50%; width: 33%; max-width: 400px; min-width: 300px; transform: translateX(-50%) translateY(-50%) scale3d(1, 1, 1); text-align: center;">
+		<div class="spinner-grow" id="loader"
+			style="width: 5rem; height: 5rem;" role="status">
+			<span class="sr-only">Loading...</span>
+		</div>
+	</div>
+	<nav class="navbar navbar-dark bg-dark">
+		<form class="navbar-brand">
+			<img width="200" height="50" src="images/safe_logo.png"> Safe Fly
+			Management Excellence
+		</form>
+	</nav>
+
+	<div class="container">
+		<nav class="navbar navbar-light rounded">
+			<div class="col-md-6 col-md-offset-3">
+
+				<div th:if="${param.success}">
+					<div class="alert alert-info">You've successfully registered
+						to SAFE.Please login with your account</div>
+				</div>
+
+				<h3>SAFE Registration</h3>
+				<form th:action="@{/loginRegistration}" th:object="${user}" method="post">
+
+					<p class="error-message" style="color: red"
+						th:if="${#fields.hasGlobalErrors()}"
+						th:each="error : ${#fields.errors('global')}" th:text="${error}">Validation
+						error</p>
+
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('firstName')}? 'has-error':''">
+						<label for="firstName" class="control-label">First name</label> <input
+							id="firstName" class="form-control" th:field="*{firstName}" />
+						<p class="error-message" style="color: red"
+							th:each="error: ${#fields.errors('firstName')}"
+							th:text="${error}">Validation error</p>
+					</div>
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('lastName')}? 'has-error':''">
+						<label for="lastName" class="control-label">Last name</label> <input
+							id="lastName" class="form-control" th:field="*{lastName}" />
+						<p class="error-message" style="color: red"
+							th:each="error : ${#fields.errors('lastName')}"
+							th:text="${error}">Validation error</p>
+					</div>
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('email')}? 'has-error':''">
+						<label for="email" class="control-label">E-mail</label> <input
+							id="email" class="form-control" th:field="*{email}" />
+						<p class="error-message" style="color: red"
+							th:each="error : ${#fields.errors('email')}" th:text="${error}">Validation
+							error</p>
+					</div>
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('confirmEmail')}? 'has-error':''">
+						<label for="confirmEmail" class="control-label">Confirm
+							e-mail</label> <input id="confirmEmail" class="form-control"
+							th:field="*{confirmEmail}" />
+						<p class="error-message" style="color: red"
+							th:each="error : ${#fields.errors('confirmEmail')}"
+							th:text="${error}">Validation error</p>
+					</div>
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('password')}? 'has-error':''">
+						<label for="password" class="control-label">Password</label> <input
+							id="password" class="form-control" type="password"
+							th:field="*{password}" />
+						<p class="error-message" style="color: red"
+							th:each="error : ${#fields.errors('password')}"
+							th:text="${error}">Validation error</p>
+					</div>
+					<div class="form-group"
+						th:classappend="${#fields.hasErrors('confirmPassword')}? 'has-error':''">
+						<label for="confirmPassword" class="control-label">Confirm
+							password</label> <input id="confirmPassword" class="form-control"
+							type="password" th:field="*{confirmPassword}" />
+						<p class="error-message" style="color: red"
+							th:each="error : ${#fields.errors('confirmPassword')}"
+							th:text="${error}">Validation error</p>
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-success">Register</button>
+						<span>Already registered? <a href="/" th:href="@{/login}">Login
+								here</a></span>
+					</div>
+
+				</form>
+			</div>
+		</nav>
+	</div>
+	<div id="loaderDiv"
+		style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100%; background: rgba(0, 0, 0, 0.75) url(images/wait.gif) no-repeat center center; z-index: 10000;">
+	</div>
+	<script>
+		document.onreadystatechange = function() {
+			if (document.readyState !== "complete") {
+				document.querySelector("body").style.visibility = "hidden";
+				document.querySelector("#loader").style.visibility = "visible";
+			} else {
+				document.querySelector("#loader").style.display = "none";
+				document.querySelector("body").style.visibility = "visible";
+			}
+		};
+	</script>
+</body>
+</html>

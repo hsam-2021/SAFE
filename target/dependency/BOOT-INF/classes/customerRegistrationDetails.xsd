@@ -1,0 +1,64 @@
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.safe.com/hsap/domainobjects/services"
+	xmlns:tns="http://www.safe.com/hsap/domainobjects/services"
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" jaxb:version="2.0"
+	elementFormDefault="qualified">
+	<element name="customerRegiration">
+		<complexType>
+			<sequence>
+				<element name="passengerFirstName" type="string"
+					minOccurs="1" maxOccurs="1" />
+				<element name="passengerLastName" type="string"
+					minOccurs="1" maxOccurs="1" />
+				<element name="passengerGender" type="string" maxOccurs="1" />
+				<element name="passengerNationality" type="string"
+					maxOccurs="1" />
+				<element name="passengerPassportNo" type="string"
+					maxOccurs="1" />
+				<element name="passengerDob" type="date" maxOccurs="1" />
+				<element name="passengerPassportExpiry" type="date"
+					maxOccurs="1" />
+				<element name="passengerType" type="string" maxOccurs="1" />
+				<element name="street" type="string" maxOccurs="1" />
+				<element name="aptno" type="string" maxOccurs="1" />
+				<element name="city" type="string" maxOccurs="1" />
+				<element name="custState" type="string" maxOccurs="1" />
+				<element name="country" type="string" maxOccurs="1" />
+				<element name="zip" type="int" maxOccurs="1" />
+				<element name="custEmail" type="string" maxOccurs="1" />
+				<element name="contactNum" type="string" maxOccurs="1" />
+				<element name="countryCodePhone" type="int" maxOccurs="1" />
+				<element name="emergencyContactNum" type="string" maxOccurs="1" />
+				<element name="emergencyContactFirstName" type="string"
+					maxOccurs="1" />
+				<element name="emergencyContactLastName" type="string"
+					maxOccurs="1" />
+				<element name="customerType" type="string" maxOccurs="1" />
+				<element name="bookingAgentName" type="string" maxOccurs="1" />
+				<element name="bookingAgentWebAdd" type="string"
+					maxOccurs="1" />
+				<element name="bookingAgentContactNo" type="string"
+					maxOccurs="1" />
+				<element name="membershipname" type="string" maxOccurs="1" />
+				<element name="assoicatedAirline" type="string"
+					maxOccurs="1" />
+				<element name="membershipStartDate" type="date"
+					maxOccurs="1" />
+				<element name="membershipEndtDate" type="date" maxOccurs="1" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="customerRegirationStatus">
+		<complexType>
+			<sequence>
+				<element name="statusCode" type="int" minOccurs="1"
+					maxOccurs="1" />
+				<element name="statusMessage" type="string" minOccurs="1"
+					maxOccurs="1" />
+			</sequence>
+		</complexType>
+	</element>
+</schema>
+	

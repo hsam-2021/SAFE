@@ -1,0 +1,48 @@
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.safe.com/hsap/domainobjects/services"
+	xmlns:tns="http://www.safe.com/hsap/domainobjects/services"
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" jaxb:version="2.0"
+	elementFormDefault="qualified">
+	<element name="planTransactionSaveRequest">
+		<complexType>
+			<sequence>
+				<element name="custEmail" type="string" minOccurs="1"
+					maxOccurs="1" />
+				<element name="mealid" type="int" minOccurs="1"
+					maxOccurs="1" />
+				<element name="cabinid" type="int" minOccurs="1"
+					maxOccurs="1" />
+				<element name="speRequestid" type="int" minOccurs="1"
+					maxOccurs="1" />
+				<element name="flDetailid" type="int" minOccurs="1"
+					maxOccurs="1" />
+				<element name="planid" type="int" minOccurs="1"
+					maxOccurs="1" />
+				<element name="cfname" type="string" minOccurs="1"
+					maxOccurs="1" />
+				<element name="cmname" type="string" minOccurs="1"
+					maxOccurs="1" />
+				<element name="clname" type="string" minOccurs="1"
+					maxOccurs="1" />
+				<element name="cardnum" type="string" minOccurs="1"
+					maxOccurs="1" />
+				<element name="cardtype" type="string" minOccurs="1"
+					maxOccurs="1" />
+				<element name="cardExpiry" type="date" maxOccurs="1" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="planTransactionSaveResponse">
+		<complexType>
+			<sequence>
+				<element name="statusCode" type="int" minOccurs="1"
+					maxOccurs="1" />
+				<element name="statusMessage" type="string" minOccurs="1"
+					maxOccurs="1" />
+			</sequence>
+		</complexType>
+	</element>
+</schema>
+	

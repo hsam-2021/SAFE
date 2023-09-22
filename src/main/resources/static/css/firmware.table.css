@@ -1,0 +1,63 @@
+#firmware-table{
+  border: 1px solid black;
+  border-collapse: collapse;
+  border-width: 3px;
+}
+
+.firmware-table-col1-title {
+    padding: 5px;
+    width: 500px;
+    border: 1px solid black;
+    border-width: 3px;
+    font-size: medium;
+}
+
+.firmware-table-col2-title {
+    padding: 5px;
+    width: 100px;
+    border: 1px solid black;
+    border-width: 3px;
+    font-size: medium;
+}
+
+.firmware-table-col3-title  {
+    padding: 5px;
+    border: 1px solid black;
+    border-width: 3px;
+    font-size: medium;
+}
+
+.firmware-table-col1 {
+    padding: 5px;
+    width: 500px;
+    border: 1px solid black;
+    border-width: 3px;
+    font-size: small;
+}
+.firmware-table-col2 {
+    padding: 5px;
+    width: 100px;
+    border: 1px solid black;
+    border-width: 3px;
+    font-size: small;
+}
+
+.firmware-table-col3 {
+    padding: 5px;
+    border: 1px solid black;
+    border-width: 3px;
+    font-size: small;
+}
+
+.firmware-table-row {
+    padding: 5px;
+    border: 1px solid black;
+    border-width: 3px;
+    font-size: small;
+}
+
+.btn-upload-firmware {
+    padding: 5px;
+    font-size: small;
+    font-weight: bold;
+}

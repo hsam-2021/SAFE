@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>SAFE Registration</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap core CSS -->
+<script th:src="@{webjars/jquery/3.5.1/jquery.js}"></script>
+<script th:src="@{webjars/bootstrap/4.5.0/js/bootstrap.js}"></script>
+<script th:src="@{/js/jquery.datatables.js}"></script>
+<script th:src="@{/js/dataTables.buttons.js}"></script>
+<script th:src="@{/js/dataTables.select.js}"></script>
+<script th:src="@{/js/dataTables.responsive.js}"></script>
+<script th:src="@{/js/dataTables.altEditor.js}"></script>
+<script th:src="@{/js/purchasePlan.js}"></script>
+<link th:rel="stylesheet"
+	th:href="@{webjars/bootstrap/4.5.0/css/bootstrap.css} " />
+<link rel="stylesheet" th:href="@{/css/jquery.datatables.css}">
+<link rel="stylesheet" th:href="@{/css/buttons.dataTables.css}">
+<link rel="stylesheet" th:href="@{/css/select.dataTables.css}">
+<link rel="stylesheet" th:href="@{/css/responsive.dataTables.css}">
+</head>
+<body>
+	<div class="d-flex justify-content-center"
+		style="position: absolute; top: 45%; left: 50%; width: 33%; max-width: 400px; min-width: 300px; transform: translateX(-50%) translateY(-50%) scale3d(1, 1, 1); text-align: center;">
+		<div class="spinner-grow" id="loader"
+			style="width: 5rem; height: 5rem;" role="status">
+			<span class="sr-only">Loading...</span>
+		</div>
+	</div>
+	<nav class="navbar navbar-dark bg-dark">
+		<form th:action="@{/logout}" method="post" class="navbar-brand">
+			<img width="200" height="50" src="images/safe_logo.png"> Safe
+			Fly Management Excellence
+			<h6 th:inline="text" align="right">
+				Welcome [[${#httpServletRequest.remoteUser}]] <input type="submit"
+					value="Logout" />
+			</h6>
+			<input id=customerEmail th:value="${#httpServletRequest.remoteUser}"
+				type="hidden">
+
+
+		</form>
+		<div sec:authorize="hasAnyRole('USER','ADMIN')">
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarToggleExternalContent"
+				aria-controls="navbarToggleExternalContent" aria-expanded="true"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+		</div>
+		<div sec:authorize="hasAnyRole('USER')"
+			class="navbar-collapse collapse" id="navbarToggleExternalContent"
+			style="width: 250px; background: rgb(80, 80, 80); position: fixed; right: 0px; top: 85px; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; outline: none; z-index: 2001; box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 20px;">
+
+			<div class="container" style="width: 100%">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><a class="nav-link" href="#"
+						th:href="@{/}">Home<span class="sr-only">(current)</span></a></li>
+					<li class="nav-item"><a class="nav-link" href="#"
+						th:href="@{/purchasePlanTransaction}">Transaction</a></li>
+					<li class="nav-item"><a class="nav-link" href="#"
+						th:href="@{/customerDetails}">Update Profile</a></li>
+				</ul>
+			</div>
+		</div>
+		<div sec:authorize="hasAnyRole('ADMIN')"
+			class="navbar-collapse collapse" id="navbarToggleExternalContent"
+			style="width: 250px; background: rgb(80, 80, 80); position: fixed; right: 0px; top: 85px; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; outline: none; z-index: 2001; box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 20px;">
+
+			<div class="container" style="width: 100%">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><a class="nav-link" href="#"
+						th:href="@{/}">Home<span class="sr-only">(current)</span></a></li>
+					<li class="nav-item"><a class="nav-link" href="#"
+						th:href="@{/purchasePlanTransaction}">Manage Transactions</a></li>
+					<li class="nav-item"><a class="nav-link" href="#"
+						th:href="@{/customerDetails}">Manage Customer Profile</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+		<nav class="navbar navbar-light rounded">
+			<h3>
+				<a class="navbar">Purchase Plan</a><br>
+			</h3>
+			<div class="container">
+				<h5>
+					<a class="navbar">Add/Remove Passengers</a>
+				</h5>
+				<table id="purchasePlanTable"
+					class="table table-striped table-bordered" style="width: 100%">
+				</table>
+			</div>
+		</nav>
+	</div>
+	<div class="container">
+		<nav class="navbar navbar-light rounded">
+			<h5>
+				<a class="navbar">Flight Itinerary Details</a>
+			</h5>
+			<div>
+				<form id="purchasePlanForm" name="purchasePlanForm"
+					action="javascript:purchasePlan()">
+					<input id=custEmail th:value="${#httpServletRequest.remoteUser}"
+						type="hidden">
+					<table>
+						<tr>
+							<td>
+								<div class="form-group blu-margin">
+									<select class="form-control" id="mealid">
+										<option value="0">Select Meal</option>
+										<option th:each="meal : ${mealPlan}" th:value="${meal.mealId}"
+											th:text="${meal.mealName}"></option>
+									</select>
+								</div>
+							</td>
+							<td>
+								<div class="form-group blu-margin">
+									<select class="form-control" id="cabinid">
+										<option value="0">Select Cabin</option>
+										<option th:each="cab : ${cabin}" th:value="${cab.cabinId}"
+											th:text="${cab.cabinType}"></option>
+									</select>
+								</div>
+							</td>
+							<td>
+								<div class="form-group blu-margin">
+									<select class="form-control" id="speRequestid">
+										<option value="0">Select Special Request</option>
+										<option th:each="speReq : ${speicalRequest}"
+											th:value="${speReq.reqId}" th:text="${speReq.reqType}"></option>
+									</select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="form-group blu-margin">
+									<select class="form-control" id="flDetailid">
+										<option value="0">Select Flight</option>
+										<option th:each="flDetail : ${flightDetails}"
+											th:value="${flDetail.flId}"
+											th:text="${flDetail.flightDetails}"></option>
+									</select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h5>
+									<a class="navbar">Insurance Plans</a>
+								</h5>
+
+							</td>
+						</tr>
+					</table>
+					<table class="table table-bordered">
+						<tr th:each="planDetail : ${planDetails}">
+							<td th:text="${planDetail.planName}"></td>
+							<td><input type="checkbox" name="planid" id="planid"
+								th:value="${planDetail.planId}" th:class="chkCheckBox" /></td>
+						</tr>
+					</table>
+					<br>
+					<h5>
+						<a class="navbar">Payment Details</a>
+					</h5>
+					<table class="table table-bordered">
+						<tr>
+							<td>
+								<div class="form-row">
+									<div class="form-group col-md-6">
+										<label for="fnames">First Name</label> <input type="text"
+											id="cfname" class="form-control">
+									</div>
+									<div class="form-group col-md-2">
+										<label for="mlname">Middle Name</label> <input type="text"
+											id="cmname" class="form-control">
+									</div>
+									<div class="form-group col-md-2">
+										<label for="clname">Last Name</label> <input type="text"
+											id="clname" class="form-control">
+									</div>
+								</div>
+								<div class="form-row">
+									<div class="form-group col-md-6">
+										<label for="cardnum">Card Number</label> <input type="number"
+											min="1000000000000000" max="9999999999999999" id="cardnum"
+											class="form-control" required
+											oninvalid="setCustomValidity('allow only 16 digits')"
+											oninput="setCustomValidity('')">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="cardtype">Card Type</label> <select id="cardtype"
+											class="form-control">
+											<option value="">Choose Card Type</option>
+											<option value="C">Credit</option>
+											<option value="D">Debit</option>
+										</select>
+									</div>
+									<div class="form-group col-md-3">
+										<label for="cardExpiry">Card Expiry Date</label> <input
+											type="date" id="cardExpiry" class="form-control"
+											placeholder="MM/DD/YYYY" required>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+					<br>
+					<div class="row">
+						<button type="submit" class="btn btn-success">Buy Plans</button>
+					</div>
+				</form>
+			</div>
+		</nav>
+	</div>
+
+	<div id="loaderDiv"
+		style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100%; background: rgba(0, 0, 0, 0.75) url(images/wait.gif) no-repeat center center; z-index: 10000;">
+	</div>
+	<script>
+		function getPlanId(planId) {
+			alert(planId);
+			return true;
+		}
+
+		document.onreadystatechange = function() {
+			if (document.readyState !== "complete") {
+				document.querySelector("body").style.visibility = "hidden";
+				document.querySelector("#loader").style.visibility = "visible";
+			} else {
+				document.querySelector("#loader").style.display = "none";
+				document.querySelector("body").style.visibility = "visible";
+			}
+		};
+	</script>
+</body>
+</html>

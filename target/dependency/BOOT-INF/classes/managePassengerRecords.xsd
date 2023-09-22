@@ -1,0 +1,47 @@
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.safe.com/hsap/domainobjects/services"
+	xmlns:tns="http://www.safe.com/hsap/domainobjects/services"
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" jaxb:version="2.0"
+	elementFormDefault="qualified">
+	<element name="addPassengerRequest">
+		<complexType>
+			<sequence>
+				<element name="custEmail" type="string" minOccurs="1"
+					maxOccurs="1" />
+				<element name="fname" type="string" minOccurs="1"
+					maxOccurs="1" />
+				<element name="lname" type="string" maxOccurs="1" />
+				<element name="gender" type="string" maxOccurs="1" />
+				<element name="nationality" type="string" maxOccurs="1" />
+				<element name="passportNo" type="string" maxOccurs="1" />
+				<element name="dob" type="date" maxOccurs="1" />
+				<element name="passExpiry" type="date" maxOccurs="1" />
+			</sequence>
+		</complexType>
+	</element>
+	<element name="deletePassengerRequest">
+		<complexType>
+			<sequence>
+				<element name="pid" type="int" minOccurs="1" maxOccurs="1" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="updatePassengerRequest">
+		<complexType>
+			<sequence>
+				<element name="pId" type="int" minOccurs="1" maxOccurs="1" />
+				<element name="fname" type="string" minOccurs="1"
+					maxOccurs="1" />
+				<element name="lname" type="string" maxOccurs="1" />
+				<element name="gender" type="string" maxOccurs="1" />
+				<element name="nationality" type="string" maxOccurs="1" />
+				<element name="passportNo" type="string" maxOccurs="1" />
+				<element name="dob" type="date" maxOccurs="1" />
+				<element name="passExpiry" type="date" maxOccurs="1" />
+			</sequence>
+		</complexType>
+	</element>
+</schema>
+	
